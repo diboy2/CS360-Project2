@@ -1,0 +1,64 @@
+1.)
+
+a.)
+Consider a situation in pathfinding where you find to or more states taht have f-value = c* and c* is the lowest f-value out of all the states that you are going to choose. If you choose the state with the lowest g-value from those states with f-value = C*, you will add into states that have g-values greater than the states that have f-value = c*.
+Statement:
+And also, because the hearistic is consistent, the f-values of these new states will be greater than or equal to c*.
+
+Proof:
+N is a node;
+P is child node;
+			
+c(N,P) is cost between N and P.
+h(N)<= c(N,P) + h(P);
+g(N) = g(P)-c(N,P);
+g(N) + c(N,P) = g(P);
+
+f(N) = c*;
+c* = g(N) + h(N)
+f(P)  = g(N)  + c(N,P) + h(P);
+
+Subtract the two equations
+
+c*-f(P) = h(N) -(c(N,P) + h(P));
+
+h(N) -(c(N,P) + h(P)) <=0 
+
+Therefore
+
+c*-f(P) <= 0
+
+c* <= f(P);
+
+Therefore, you will have to consider the the states that are not new states before choosing the new states. 
+
+b.) 
+Consider a situation in pathfinding where you find two or more states that have f-value c* and c* is the lowest f-value out of all the states that you are going to choose. If you choose the state with the highest g-value out of the discussed states, it expands the state with the biggest g-value. The new states from the expanded states will have higher g-values.
+
+h(N)<= c(N,P) + h(P);
+g(N) = g(P)-c(N,P);
+
+Since c* <= f(P), if the f-value happens to be equal to c*. You will still choose P. Therefore, A* will only expand some of the non-goal states whose f-values are equal to c*.
+
+c.)
+
+Since breaking ties with smaller g-value expands all non-goal states whose f-values are equal to c* and breaking ties with larger g-values expands only some of the non-goal states whose f-values are equal to c*, then A* that breakes ties in favor of states with larger g-values expands no more states than a version of A* that breaks ties in favor of states with smaller g-values.
+
+
+2.)
+Consider this grid with manhattan heuristic and bottom left is start and 3,3 position is the goal.
+
+g + h = f
+Tie-breaking is larger g
+  0        1         2         3  
+4|		  | 1+3 = 4 | 2+2 = 4 | 3+1 = 4 | 
+3|3+3 = 6 | 4+2 = 6 | 5+1 = 6 | 6+0 = 6 |
+2|2+4 = 6 | 3+3 = 6 | 4+2 = 6 | 5+1 = 6 |
+1|1+5 = 6 | 2+4 = 6 | 3+3 = 6 | 4+2 = 6 |
+0|0+6 = 6 | 1+5 = 6 | 2+4 = 6 | 3+3 = 6 |
+
+
+Order:(0,0),(1,0),(2,0),(3,0),(3,1),(4,1),(4,2),(4,3),(3,3) 
+numSteps = 8;
+Cost-Minimal Path: (0,0),(1,0),(2,0),(3,0),(3,1),(3,2),(3,3)
+numSteps = 6;
